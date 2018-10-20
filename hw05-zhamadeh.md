@@ -44,7 +44,7 @@ levels(gapminder$continent)
 
     ## [1] "Africa"   "Americas" "Asia"     "Europe"   "Oceania"
 
-*Dropping Oceania* First lets remove any observations that have Oceania as their continent by making use of the `filter()` method on the gapminder dataset and store this in a new variable.
+**Dropping Oceania** First lets remove any observations that have Oceania as their continent by making use of the `filter()` method on the gapminder dataset and store this in a new variable.
 
 ``` r
 filt_gapminder <- gapminder %>%
@@ -106,7 +106,7 @@ levels(filt_gapminder$continent)
 
     ## [1] "Africa"   "Americas" "Asia"     "Europe"
 
-*Reorder the levels of `country` and `continent`* Here we can reorder the levels of our country variable according to another variable, GDP per capita, using the `fct_reorder()` method and then plotting the results.
+**Reorder the levels of `country` and `continent`** Here we can reorder the levels of our country variable according to another variable, GDP per capita, using the `fct_reorder()` method and then plotting the results.
 
 ``` r
 filt_gapminder %>%
