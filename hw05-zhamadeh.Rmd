@@ -131,7 +131,7 @@ euro_new_plot %>% # this is the new graph printed with plotly
 
 # Part 4 Writing figures to file
 
-Use `ggsave()` to explicitly save a plot to file. 
+Use `ggsave()` to explicitly save a plot to file.
 
 ```{r}
 ggsave("euro_new_plot.png", euro_new_plot, width = 10, dpi = 500)
