@@ -1,6 +1,6 @@
 ---
 title: "hw05-zhamadeh"
-output: github_document
+output: html_document
 ---
 
 ```{r setup, include=FALSE}
@@ -79,7 +79,7 @@ Here we can reorder the levels of our country variable according to another vari
 
 ```{r}
 filt_gapminder %>%
-  mutate(country = fct_reorder(country, gdpPercap)) %>%
+  mutate(country = fct_reorder(country, gdpPercap)) %>% #reorder country by GDP per capita
   ggplot(aes(gdpPercap, country)) + 
   geom_point()
 ```
@@ -94,7 +94,8 @@ filt_gapminder$continent %>%
 
 # Part 2 File I/O
 
-Lets save our filtered gapminder dataset to a comma seperated values file titled gapminder.csv.
+Lets create a new gapminder dataset to a comma seperated values file titled gapminder.csv.
+
 ```{r}
 gap_europe_2007 <- gapminder %>%
   filter(continent == "Europe", year == 2007)
@@ -107,44 +108,36 @@ readr::write_csv(gap_europe_2007, "europe_2007.csv")
 
 
 ```{r}
-gap_europe_2007 %>%
+euro_old_plot <- gap_europe_2007 %>%
   ggplot(aes(gdpPercap, lifeExp)) + geom_point(aes(colour=pop))
-gap_europe_2007 %>%
+
+
+euro_new_plot <- gap_europe_2007 %>%
   ggplot(aes(gdpPercap, lifeExp)) + geom_point(aes(colour=pop))+
+  geom_text(aes(label=country),hjust=0, vjust=0, size = 2) +
   scale_x_continuous(
-    breaks = 1:10 * 5000) +
+    breaks = 1:10 * 5000,
+    labels=dollar_format()) + 
   theme_bw()+
   theme(axis.text = element_text(size=8)) + 
   labs(title = "GDP Per Capita vs Life Expectancy in European Countries", x = "GDP Per Capita", y = "Life Expectancy") 
+
+euro_old_plot # this is the original graph
+euro_new_plot # this is the new graph
+euro_new_plot %>% # this is the new graph printed with plotly
+  ggplotly() 
   
 ```
 
+# Part 4 Writing figures to file
+
+Use `ggsave()` to explicitly save a plot to file. 
 
 ```{r}
-
-```
-
-```{r}
-#ggplot(arrange_asia, aes(lifeExp, fct_reorder(country, lifeExp))) +
-#       geom_point()
-```
-
-
-
-
-
-
-
-
-
-```{r}
-#readr::write_tsv(arrange_asia, "test.tsv")
+ggsave("euro_new_plot.png", euro_new_plot, width = 10, dpi = 500)
 ```
 
 
-```{r}
-#ggsave("graph.png", plot = , device = "png", width = , height = , dpi = 500])
-```
 
 
 
